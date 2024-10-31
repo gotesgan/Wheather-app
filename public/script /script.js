@@ -1,55 +1,28 @@
-;
+function getLocation(position) {
+    let location = [];
+    location.push(position.coords.latitude, position.coords.longitude);
+    console.log(position.coords.latitude, position.coords.longitude);
 
-
-
-
- function getLoction(position){
-    let location =[];
-    location.push (position.coords.latitude,position.coords.longitude);
-    console.log(position.coords.latitude,position.coords.longitude);
     fetch("/getlocation", {
-        method: "POST", 
+        method: "POST",
         headers: {
-           'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(location)
-    }).then(response => {
-        // this line of code depends upon what type of response you're expecting
-        return response.text();     
-    }).then(result => {
+    })
+    .then(response => response.text()) // Adjust according to the expected response type
+    .then(result => {
         console.log(result);
-    }).catch(err => {
+    })
+    .catch(err => {
         console.log(err);
     });
-
-
-
-   
-
-   
-  
-}
-function faliedToGett(position){
-    fetch("/getlocation", {
-        method: "POST", 
-        headers: {
-           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(err)
-    }).then(response => {
-        // this line of code depends upon what type of response you're expecting
-        return response.text();     
-    }).then(result => {
-        console.log(result);
-    }).catch(err => {
-        console.log(err);
-    });
-
 }
 
+function failedToGet() {
+    console.log("Failed to retrieve location");
+}
 
-
-$("#entry").click(async (e) => { 
-  const result = navigator.geolocation.getCurrentPosition(getLoction,faliedToGett)
-    
+$("#entry").click((e) => { 
+    navigator.geolocation.getCurrentPosition(getLocation, failedToGet);
 });
