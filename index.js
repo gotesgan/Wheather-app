@@ -3,6 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import axios from 'axios';
+import env from "process"
 
 
 
@@ -32,11 +33,21 @@ app.use(bodyParser.json());
 
 app.post("/getlocation",async (req, res)=> {
 let location = new Location(req.body[0],req.body[1])
-console.log(location)
-const result = await axios.get(`http://api.weatherapi.com/v1/current.json?key=13288241d5614ad6b3782648243110&q=${location.Latitude},${location.Longitude}&aqi=no`)
-console.log(result.data)
+
+const result = await axios.get(`http://api.weatherapi.com/v1/current.json?key=${process.env.WeatheKey}&q=${location.Latitude},${location.Longitude}&aqi=no`)
+console.log(result)
+
 
 });
+
+
+app.get('/getWeather' ,(req,res)=>{
+
+console.log(req.body.data)
+  res.render('wheather.ejs')
+}
+
+)
 
 
 

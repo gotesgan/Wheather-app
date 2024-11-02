@@ -4,7 +4,7 @@ function getLocation(position) {
     console.log(position.coords.latitude, position.coords.longitude);
 
     fetch("/getlocation", {
-        method: "POST",
+        method: "post",
         headers: {
             'Content-Type': 'application/json'
         },
